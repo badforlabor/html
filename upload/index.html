@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <tilte>uploadFile</title>
+
+        <script>
+
+            function uploadFile() {
+
+                var formData = new FormData();
+
+                var files = document.getElementById('img_input').files;
+
+                var file = files[0];
+
+                formData.append('uploadfile', file);
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'http://127.0.0.1:9998/upload', true);
+
+                xhr.onload = function (e) {
+
+                    if (this.status == 200) {
+
+                        document.getElementById("resulte").innerHTML = this.response;
+
+                    }
+
+                };
+
+                xhr.send(formData);
+
+            }
+            function uploadBlob() {
+
+                var files = document.getElementById('img_input').files;
+
+                var file = files[0];
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'http://127.0.0.1:9998/upload_blob', true);
+
+                xhr.onload = function (e) {
+
+                    if (this.status == 200) {
+
+                        document.getElementById("resulte").innerHTML = this.response;
+
+                    }
+
+                };
+
+                // var blob = new Blob(['abc123'], { type: 'text/plain' });
+                // xhr.send(blob);
+
+                xhr.send(file);
+
+            }
+
+        </script>
+
+</head>
+
+<body>
+    <h3>Demo1:选取一张图片1</h3>
+    <form>
+        <input id="img_input" type="file" accept="image/*" />
+        <br/>
+        <input type="button" value="upload" onclick="uploadBlob();">
+    </form>
+
+    <hr />
+
+</body>
+
+</html>
